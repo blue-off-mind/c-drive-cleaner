@@ -46,6 +46,9 @@ powershell -ExecutionPolicy Bypass -File .\c-drive-cleaner\scripts\scan_c_drive.
 
 # Preview low-risk cleanup candidates without deleting.
 powershell -ExecutionPolicy Bypass -File .\c-drive-cleaner\scripts\scan_c_drive.ps1 -Mode clean-safe
+
+# Write a Chinese report to a Markdown file.
+powershell -ExecutionPolicy Bypass -File .\c-drive-cleaner\scripts\scan_c_drive.ps1 -Mode scan -Language zh-CN -OutputPath .\c-drive-scan.md
 ```
 
 `clean-safe` deletes only if both `-Execute` and `-ConfirmClean` are supplied. Review the report first.
@@ -112,6 +115,9 @@ powershell -ExecutionPolicy Bypass -File .\c-drive-cleaner\scripts\scan_c_drive.
 
 # 预览低风险清理候选项，不会删除。
 powershell -ExecutionPolicy Bypass -File .\c-drive-cleaner\scripts\scan_c_drive.ps1 -Mode clean-safe
+
+# 将中文报告写入 Markdown 文件。
+powershell -ExecutionPolicy Bypass -File .\c-drive-cleaner\scripts\scan_c_drive.ps1 -Mode scan -Language zh-CN -OutputPath .\c-drive-scan.md
 ```
 
 `clean-safe` 只有在同时提供 `-Execute` 和 `-ConfirmClean` 时才会删除。请先审查报告。

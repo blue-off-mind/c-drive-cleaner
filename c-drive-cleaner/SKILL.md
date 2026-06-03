@@ -24,12 +24,15 @@ Treat this skill as a transparent alternative to opaque cleaner apps: inspect, c
    - Path
    - Size
    - Owner guess
+   - Folder description
    - Content type
    - Complexity
    - Risk
    - Suggested action
    - Estimated reclaim
+   - Age buckets
    - Deletion hazard
+   - Cleanup status when previewing safe cleanup
 4. Use size, folder name, file counts, recent modification, cache keywords, and system sensitivity to decide what to inspect next.
 5. For complex folders, dispatch a subagent or separate focused inspection. For simple folders, inspect directly.
 6. End with two improvement paths:
@@ -50,6 +53,9 @@ Common commands:
 # Markdown audit of default C drive targets.
 powershell -ExecutionPolicy Bypass -File .\scripts\scan_c_drive.ps1 -Mode scan -OutputFormat markdown
 
+# Chinese Markdown audit.
+powershell -ExecutionPolicy Bypass -File .\scripts\scan_c_drive.ps1 -Mode scan -Language zh-CN -OutputPath .\c-drive-scan.md
+
 # JSON audit for further processing.
 powershell -ExecutionPolicy Bypass -File .\scripts\scan_c_drive.ps1 -Mode scan -OutputFormat json
 
@@ -59,6 +65,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\scan_c_drive.ps1 -Mode plan
 # Preview low-risk cleanup candidates. This does not delete without both switches.
 powershell -ExecutionPolicy Bypass -File .\scripts\scan_c_drive.ps1 -Mode clean-safe
 ```
+
+When writing reports or Markdown files, match the user's language. Use `-Language zh-CN` for Chinese users, `-Language en` for English users, or `-Language auto` when the system UI culture is reliable. Prefer `-OutputPath` for long reports so terminal truncation does not hide rows.
 
 Only run cleanup with both explicit switches after user review:
 
@@ -76,6 +84,15 @@ Use these default meanings unless local evidence contradicts them:
 - `Low risk`: rebuildable cache or old logs.
 - `Medium risk`: app cache mixed with settings, crash dumps, or data that may slow first launch after cleanup.
 - `High risk`: user documents, saved games, project dependencies, sync folders, security quarantine, pagefile, hibernation, restore points, WinSxS, installers, databases, or unknown large directories.
+
+Always include a short folder description for suspicious or recognizable folders, for example:
+
+- Tencent: Tencent-family app data such as WeChat, QQ, Tencent Meeting, updates, plugins, logs, or media cache.
+- Microsoft: Microsoft-family data; browser and Windows-managed state should use app settings or official Windows tools.
+- Code/VS Code: developer-tool caches, extensions, crash reports, and settings may be mixed.
+- npm/pnpm/yarn: package-manager caches; prefer package-manager cleanup commands after confirmation.
+- Temp: may contain active installers or diagnostics, so use age buckets instead of assuming all bytes are disposable.
+- Docker/game launchers/cloud sync: high-impact data; prefer official commands or in-app migration.
 
 ## 360 Cleaner Pro Parity
 
