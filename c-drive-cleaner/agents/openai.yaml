@@ -1,0 +1,4 @@
+interface:
+  display_name: "C Drive Cleaner"
+  short_description: "Audit Windows C drive usage and cleanup risk."
+  default_prompt: "Use $c-drive-cleaner to audit my Windows C drive and produce a safe cleanup plan."

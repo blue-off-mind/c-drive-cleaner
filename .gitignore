@@ -1,0 +1,15 @@
+# Local/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Script output
+*.log
+*.tmp
+scan-output*.json
+scan-output*.md
+
+# PowerShell/editor caches
+*.ps1xml
+*.psm1~
